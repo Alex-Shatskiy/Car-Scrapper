@@ -1,5 +1,5 @@
 const { default: puppeteer } = require("puppeteer")
-require("dontenv").config()
+require("dotenv").config()
 const pt = require("puppeteer")
 async function autoWorld(url) {
   //launch browser in headless mode

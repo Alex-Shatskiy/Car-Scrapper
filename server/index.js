@@ -8,11 +8,11 @@ const valueMotors = require("./webscraper/valueMotors")
 const app = express()
 const port = 5000
 
-app.get("/", (req, res) => {
-  res.send("Hello World!")
-})
+// app.get("/", (req, res) => {
+//   res.send("Hello World!")
+// })carsCheap/optimal
 
-app.get("/carsCheap/optimal", async (req, res) => {
+app.get("/", async (req, res) => {
   return await carsCheap
     .getText(
       "https://www.2cheapcars.co.nz/used-vehicles?MinYear=2015&MaxPrice=15000&MaxKm=150000&Transmission=Automatic&Dealership=Wellington"

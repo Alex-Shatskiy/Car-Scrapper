@@ -1,0 +1,11 @@
+.page-details {
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  margin: 2% auto 0px auto;
+  flex-direction: column;
+}
+.page-details span {
+  color: white;
+  margin: auto;
+}

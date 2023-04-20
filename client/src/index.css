@@ -1,0 +1,8 @@
+body {
+  margin: 0;
+  background-color: black;
+  --bg-color: hsla(0, 0%, 0%, 0.55);
+  background-image: linear-gradient(0deg, var(--bg-color), var(--bg-color)),
+    url("https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77700325017.jpg");
+  font-family: "Roboto Slab", serif;
+}

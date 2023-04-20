@@ -55,6 +55,7 @@ app.get("/autoWorld/optimal", async (req, res) => {
   )
   res.json({ cars: carData })
 })
+.catch(err => console.log(`Error:${err}`))
 
 app.get("/autoWorld/more", async (req, res) => {
   let carData = await autoWorld.autoWorld(

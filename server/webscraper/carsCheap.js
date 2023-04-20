@@ -10,8 +10,10 @@ async function getText(url) {
       "--single-process",
       "--no-zygote",
     ],
-
-    executablePath: '/usr/bin/google-chrome'
+    executablePath:
+      process.env.NODE_ENV === "production"
+        ? process.env.PUPPETEER_EXECUTABLE_PATH
+        : puppeteer.executablePath(),
   });
   //browser new page
   const page = await browser.newPage()

@@ -50,25 +50,29 @@ app.get("/wholeSale/more", async (req, res) => {
 })
 
 app.get("/autoWorld/optimal", async (req, res) => {
-  let carData = await autoWorld.autoWorld(
-    "https://www.autoworld.co.nz/vehicles?Make=&Text=&PriceFrom=0&PriceTo=15000&YearFrom=2015&YearTo=0&Transmission=&BodyStyle=&Dealership=&SortOption=0&Page=1&EngineSizeFrom=0&EngineSizeTo=0&OdometerFrom=0&OdometerTo=0&Model=&VehicleType=All&IgnoreContext=&FuelType1=&Colour="
+    return await autoWorld.autoWorld(
+      "https://www.autoworld.co.nz/vehicles?Make=&Text=&PriceFrom=0&PriceTo=15000&YearFrom=2015&YearTo=0&Transmission=&BodyStyle=&Dealership=&SortOption=0&Page=1&EngineSizeFrom=0&EngineSizeTo=0&OdometerFrom=0&OdometerTo=0&Model=&VehicleType=All&IgnoreContext=&FuelType1=&Colour="
   )
-
-  .catch(err =>{
-    console.log(err)
+  .then((data)=>{
+    res.json({ cars: data })
   })
-  res.json({ cars: carData })
+  .catch((err) => {
+    console.log("whoopsie", err)
+  })
+
 })
 
 
 app.get("/autoWorld/more", async (req, res) => {
-  let carData = await autoWorld.autoWorld(
+  return await autoWorld.autoWorld(
     "https://www.autoworld.co.nz/vehicles?Make=&Text=&PriceFrom=0&PriceTo=20000&YearFrom=2013&YearTo=0&Transmission=Automatic&BodyStyle=&Dealership=&SortOption=0&Page=1&EngineSizeFrom=1500&EngineSizeTo=0&OdometerFrom=0&OdometerTo=0&Model=&VehicleType=All&IgnoreContext=&FuelType1=Hybrid%2cPetrol&Colour="
-  )
-  .catch(err =>{
-    console.log(err)
-  })
-  res.json({ cars: carData })
+    )
+    .then(data =>{
+      res.json({ cars: data })
+    })
+    .catch((err) => {
+      console.log("whoopsie", err)
+    })
 })
 
 app.get("/coventryCars/optimal", async (req, res) => {

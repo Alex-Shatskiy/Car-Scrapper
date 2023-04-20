@@ -1,7 +1,10 @@
+const { default: puppeteer } = require("puppeteer")
 const pt = require("puppeteer")
 async function autoWorld(url) {
   //launch browser in headless mode
-  const browser = await pt.launch({ headless: true })
+  const browser = await pt.launch({ 
+    executablePath: process.env.NODE_ENV === "production"? process.env.PUPPETEER_EXECUTABLE: puppeteer.executablePath()
+   })
   //browser new page
   const page = await browser.newPage()
   //launch URL

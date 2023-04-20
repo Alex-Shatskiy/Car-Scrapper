@@ -5,7 +5,7 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
 
 WORKDIR /usr/src/app
 
-RUN apt-get install -y google-chrome-stable
+
 
 COPY package*.json ./
 RUN npm ci

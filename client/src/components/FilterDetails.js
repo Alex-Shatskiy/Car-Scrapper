@@ -35,7 +35,7 @@ const FilterDetails = (props) => {
           </>
         )}
       </span>
-      <div className="sort-selector">
+      <div className="sort-selector"> 
 
       <select value={sorted} onChange={(e) => setSorted(e.target.value)}>
         <option value="title">Year</option>

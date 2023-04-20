@@ -1,4 +1,6 @@
 const puppeteer = require("puppeteer")
+require("dotenv").config()
+
 async function valueMotors(url) {
   //launch browser in headless mode
   const browser = await puppeteer.launch({

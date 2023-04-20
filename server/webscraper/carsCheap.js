@@ -1,4 +1,5 @@
 const puppeteer = require("puppeteer")
+require("dotenv").config()
 
 async function getText(url) {
   //launch browser in headless mode

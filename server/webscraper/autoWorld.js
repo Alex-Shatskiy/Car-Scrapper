@@ -1,9 +1,15 @@
 const { default: puppeteer } = require("puppeteer")
+require("dontenv").config()
 const pt = require("puppeteer")
 async function autoWorld(url) {
   //launch browser in headless mode
   const browser = await pt.launch({ 
-    executablePath: process.env.NODE_ENV === "production"? process.env.PUPPETEER_EXECUTABLE: puppeteer.executablePath()
+    args:[
+      "--disbale-setuid-sandbox",
+      "--no-sandbox",
+      "--no-zygote"
+    ],
+    executablePath: process.env.NODE_ENV === "production"? process.env.PUPPETEER_EXECUTABLE_PATH: puppeteer.executablePath()
    })
   //browser new page
   const page = await browser.newPage()

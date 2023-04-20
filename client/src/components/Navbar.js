@@ -11,6 +11,9 @@ const Navbar = (props) => {
   const getCars = async (company, specFilter) => {
    await axios.get(`/${company}/${specFilter}`).then((res) => setData(res.data)).catch(err =>console.log("WHoops:",err))
   }
+  // const getCars = async (company, specFilter) => {
+  //   await axios.get(`https://car-scrapper.onrender.com`).then((res) => setData(res.data)).catch(err =>console.log("WHoops:",err))
+  //  }
   useEffect(() => {
     setData(null)
     console.log(filter)

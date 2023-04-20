@@ -20,6 +20,9 @@ app.get("/carsCheap/optimal", async (req, res) => {
     .then((data) => {
       res.json({ cars: data })
     })
+    .catch(err =>{
+      console.log(err)
+    })
 })
 
 app.get("/carsCheap/more", async (req, res) => {

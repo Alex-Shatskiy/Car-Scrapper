@@ -1,6 +1,6 @@
 const puppeteer = require("puppeteer-core")
 require("dotenv").config()
-const chromium = require('chromium');
+const chromium = require("chromium")
 
 async function valueMotors(url) {
   //launch browser in headless mode
@@ -11,13 +11,13 @@ async function valueMotors(url) {
       "--single-process",
       "--no-zygote",
     ],
-    executablePath: chromium.path
-  });
+    executablePath: chromium.path,
+  })
   //browser new page
   const page = await browser.newPage()
   let carData = []
   //launch URL
-  await page.goto(url)
+  await page.goto(url, { timeout: 0 })
   //identify element with class name
 
   let getPageNumber = await checkPageNumbers(page)

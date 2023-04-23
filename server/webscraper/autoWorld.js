@@ -1,6 +1,6 @@
 const puppeteer = require("puppeteer-core")
 require("dotenv").config()
-const chromium = require('chromium');
+const chromium = require("chromium")
 
 async function autoWorld(url) {
   //launch browser in headless mode
@@ -11,12 +11,12 @@ async function autoWorld(url) {
       "--single-process",
       "--no-zygote",
     ],
-    executablePath: chromium.path
-  });
+    executablePath: chromium.path,
+  })
   //browser new page
   const page = await browser.newPage()
   //launch URL
-  await page.goto(url)
+  await page.goto(url, { timeout: 0 })
   //identify element with class name
   const list = await page.evaluate(() =>
     Array.from(document.querySelectorAll(".vehicle"))

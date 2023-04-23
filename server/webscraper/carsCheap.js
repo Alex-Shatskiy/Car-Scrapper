@@ -8,7 +8,12 @@ async function getText(url) {
 
   //launch browser in headless mode
   const browser = await puppeteer.launch({
-
+    args: [
+      "--disable-setuid-sandbox",
+      "--no-sandbox",
+      "--single-process",
+      "--no-zygote",
+    ],
     executablePath: chromium.path
   });
   //browser new page

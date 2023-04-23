@@ -1,5 +1,7 @@
 const puppeteer = require("puppeteer-core")
 require("dotenv").config()
+const chromium = require('chromium');
+
 async function coventryCars(url, pageNum) {
   //launch browser in headless mode
   const browser = await puppeteer.launch({
@@ -9,10 +11,7 @@ async function coventryCars(url, pageNum) {
       "--single-process",
       "--no-zygote",
     ],
-    executablePath:
-      process.env.NODE_ENV === "production"
-        ? process.env.PUPPETEER_EXECUTABLE_PATH
-        : puppeteer.executablePath(),
+    executablePath: chromium.path
   });
   //browser new page
 

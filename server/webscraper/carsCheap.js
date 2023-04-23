@@ -1,19 +1,15 @@
 const puppeteer = require("puppeteer-core")
 require("dotenv").config()
 
+const chromium = require('chromium');
+
 async function getText(url) {
+
+
   //launch browser in headless mode
   const browser = await puppeteer.launch({
-    args: [
-      "--disable-setuid-sandbox",
-      "--no-sandbox",
-      "--single-process",
-      "--no-zygote",
-    ],
-    executablePath:
-      process.env.NODE_ENV === "production"
-        ? process.env.PUPPETEER_EXECUTABLE_PATH
-        : puppeteer.executablePath(),
+
+    executablePath: chromium.path
   });
   //browser new page
   const page = await browser.newPage()

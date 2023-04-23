@@ -13,16 +13,7 @@ const port = 5000
 // })carsCheap/optimal
 
 app.get("/", async (req, res) => {
-  return await carsCheap
-    .getText(
-      "https://www.2cheapcars.co.nz/used-vehicles?MinYear=2015&MaxPrice=15000&MaxKm=150000&Transmission=Automatic&Dealership=Wellington"
-    )
-    .then((data) => {
-      res.json({ cars: data })
-    })
-    .catch(err =>{
-      console.log(err)
-    })
+  return  res.json({ Data: "HELLO WORLD"})
 })
 
 app.get("/carsCheap/more", async (req, res) => {

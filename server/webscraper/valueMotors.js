@@ -62,7 +62,7 @@ async function valueMotors(url) {
     }
   }
 
-  // browser.close()
+  browser.close()
   return await carData
 }
 

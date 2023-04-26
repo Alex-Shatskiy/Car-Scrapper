@@ -9,7 +9,14 @@ const Navbar = (props) => {
   const [carCompany, setCarCompany] = useState("")
 
   const getCars = async (company, specFilter) => {
-   await axios.get(`https://car-scrapper.onrender.com/${company}/${specFilter}`).then((res) => setData(res.data)).catch(err =>console.log("WHoops:",err))
+   await axios.get(`https://car-scrapper.onrender.com/${company}/${specFilter}`, {
+    headers: {
+      'Access-Control-Allow-Origin' : '*',
+      'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+    }
+   })
+   .then((res) => setData(res.data))
+   .catch(err =>console.log("WHoops:",err))
   }
   // const getCars = async (company, specFilter) => {
   //   await axios.get(`https://car-scrapper.onrender.com`).then((res) => setData(res.data)).catch(err =>console.log("WHoops:",err))

@@ -11,8 +11,8 @@ const Navbar = (props) => {
   const getCars = async (company, specFilter) => {
    await axios.get(`https://car-scrapper.onrender.com/${company}/${specFilter}`, {
     headers: {
-      'Access-Control-Allow-Origin' : '*',
-      'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+      'Access-Control-Allow-Origin' : 'https://car-scrapper.onrender.com',
+      'Access-Control-Allow-Methods':'GET',
     }
    })
    .then((res) => setData(res.data))

@@ -9,6 +9,29 @@ const {
   getAutoWorldPageData,
 } = require("./pageDataFunctions")
 
+let carPages = [
+  {
+    url: "https://www.coventrycars.co.nz/vehicles?",
+    dbType: "conventrycars",
+  },
+  {
+    url: "https://www.autoworld.co.nz/vehicles",
+    dbType: "autoworld",
+  },
+  {
+    url: "https://www.wholesalecarsdirect.co.nz/vehicles",
+    dbType: "wholesalecars",
+  },
+  {
+    url: "https://www.valuemotors.co.nz/vehicles?",
+    dbType: "valuemotors",
+  },
+  {
+    url: "https://www.2cheapcars.co.nz/used-vehicles?Dealership=Wellington",
+    dbType: "cheapcars",
+  },
+]
+
 async function masterScrapper(url, dbType) {
   const browser = await puppeteer.launch({
     // headless: false,
@@ -102,7 +125,7 @@ async function webSiteChecker(page, i, dbType) {
       return await getCoventryCarsPageData(page, i)
       break
     case "autoworld":
-      return await getAutoWorldPageData("https://www.autoworld.co.nz/vehicles")
+      return await getAutoWorldPageData(page, i)
       break
     case "wholesalecars":
       return await getWholeSaleCarsPageData(page, i)
@@ -118,15 +141,4 @@ async function webSiteChecker(page, i, dbType) {
   }
 }
 
-masterScrapper(
-  "https://www.2cheapcars.co.nz/used-vehicles?Dealership=Wellington",
-  "cheapcars"
-)
-//urls
-// "https://www.coventrycars.co.nz/vehicles?", "conventrycars"
-// "https://www.autoworld.co.nz/vehicles", "autoworld"
-// "https://www.wholesalecarsdirect.co.nz/vehicles", "wholesalecars"
-// "https://www.valuemotors.co.nz/vehicles?", "valuemotors"
-
-//   "https://www.2cheapcars.co.nz/used-vehicles?Dealership=Wellington","cheapcars"
-module.exports = {}
+carPages.map(async (page) => await masterScrapper(page.url, page.dbType))

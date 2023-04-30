@@ -6,14 +6,32 @@ const autoWorld = require("./webscraper/autoWorld")
 const coventryCars = require("./webscraper/coventryCars")
 const valueMotors = require("./webscraper/valueMotors")
 
+const client = require('./db')
+client.connect()
 
 const app = express()
 const port = 5000
 
 app.use(cors())
 
-app.get("/", async (req, res) => {
-  return res.json({ Data: "HELLO WORLD" })
+
+
+
+app.get('/', async (req,res) =>{
+  console.log("connected")
+})
+
+app.get('/test', async (req,res) =>{
+ try{
+  return await wholeSale.wholeSale(
+    "https://www.wholesalecarsdirect.co.nz/vehicles?Make=&Text=&PriceFrom=0&PriceTo=20600&YearFrom=2013&YearTo=0&Transmission=&BodyStyle=&Dealership=&SortOption=0&Page=1&EngineSizeFrom=0&EngineSizeTo=0&OdometerFrom=0&OdometerTo=0&Model=&VehicleType=&IgnoreContext=&FuelType1=Hybrid%2cPetrol%2cPetrol+-+Hybrid&Colour=&PageSize=999"
+  )
+  .then(data =>{
+    res.json({cars: data})
+  })
+} catch (err){
+  console.log(err.message)
+ }
 })
 
 app.get("/carsCheap/more", async (req, res) => {
@@ -70,7 +88,7 @@ app.get("/coventryCars/optimal", async (req, res) => {
   let carData = await coventryCars.coventryCars(
     "https://www.coventrycars.co.nz/vehicles?Make=&Text=&PriceFrom=0&PriceTo=15000&YearFrom=2015&YearTo=0&Transmission=Automatic%2cTiptronic&BodyStyle=&Dealership=&SortOption=0&Page=1&EngineSizeFrom=1500&EngineSizeTo=0&OdometerFrom=0&OdometerTo=150000&Model=&VehicleType=All&IgnoreContext=&FuelType1=Hybrid%2cPetrol%2cPHEV&Colour="
   )
-  res.json({ cars: carData })
+  await res.json({ cars: carData })
 })
 
 app.get("/coventryCars/more", async (req, res) => {
@@ -81,7 +99,7 @@ app.get("/coventryCars/more", async (req, res) => {
     .catch((err) => {
       console.log("whoopsie", err)
     })
-  res.json({ cars: carData })
+  await res.json({ cars: carData })
 })
 
 app.get("/valuemotors/optimal", async (req, res) => {
@@ -101,3 +119,4 @@ app.get("/valuemotors/more", async (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
+

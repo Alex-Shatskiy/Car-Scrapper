@@ -1,17 +1,17 @@
-const puppeteer = require("puppeteer-core")
+const puppeteer = require("puppeteer")
 require("dotenv").config()
 const chromium = require("chromium")
 
 async function coventryCars(url, pageNum) {
   //launch browser in headless mode
   const browser = await puppeteer.launch({
-    args: [
-      "--disable-setuid-sandbox",
-      "--no-sandbox",
-      "--single-process",
-      "--no-zygote",
-    ],
-    executablePath: chromium.path,
+    // args: [
+    //   "--disable-setuid-sandbox",
+    //   "--no-sandbox",
+    //   "--single-process",
+    //   "--no-zygote",
+    // ],
+    // executablePath: chromium.path,
   })
   //browser new page
 
@@ -50,6 +50,7 @@ async function coventryCars(url, pageNum) {
     }
   }
   browser.close()
+  console.log(carData)
   return await carData
 }
 function delay(time) {
@@ -111,27 +112,30 @@ async function getPageData(page, iterate) {
 
   km = km.replace(/\s+/g, " ").trim().split(",")
 
+
   let price = await getTxtContent(
     page,
     `/html/body/form/div[3]/div/div[2]/div[2]/div/div[2]/div/div[4]/ul/li[${iterate}]/div/div/div[2]/span/span[1]/span/span`
   )
+
 
   let pageUrl = await getPageUrl(
     page,
     `//*[@id="frmDefault"]/div[3]/div/div[2]/div[2]/div/div[2]/div/div[4]/ul/li[${iterate}]/div/div/div[1]/a`
   )
   return await {
-    img: imgUrl,
-    title: title.replace(/\s+/g, " ").trim(),
-    price: price,
-    km: km[0] + "," + km[1],
-    cc: km[4],
-    type: km[3],
-    transmission: km[2],
-    pageUrl: pageUrl,
+    conc_carimage: imgUrl,
+    conc_carname: title.replace(/\s+/g, " ").trim(),
+    conc_price: price !=undefined?parseInt(price.replace(/\D/g, '')):null,
+    conc_km: parseInt(km[0] + km[1]),
+    conc_cc: km[4] !=undefined?parseInt( km[4].replace(/\D/g, '')):null,
+    conc_type: km[3]!=undefined?km[3]:null,
+    conc_transmission: km[2],
+    conc_pageurl: pageUrl,
   }
 }
 
-module.exports = {
-  coventryCars,
-}
+coventryCars("https://www.coventrycars.co.nz/vehicles?")
+// module.exports = {
+//   coventryCars,
+// }

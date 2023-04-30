@@ -9,29 +9,6 @@ const {
   getAutoWorldPageData,
 } = require("./pageDataFunctions")
 
-let carPages = [
-  {
-    url: "https://www.coventrycars.co.nz/vehicles?",
-    dbType: "conventrycars",
-  },
-  {
-    url: "https://www.autoworld.co.nz/vehicles",
-    dbType: "autoworld",
-  },
-  {
-    url: "https://www.wholesalecarsdirect.co.nz/vehicles",
-    dbType: "wholesalecars",
-  },
-  {
-    url: "https://www.valuemotors.co.nz/vehicles?",
-    dbType: "valuemotors",
-  },
-  {
-    url: "https://www.2cheapcars.co.nz/used-vehicles?Dealership=Wellington",
-    dbType: "cheapcars",
-  },
-]
-
 async function masterScrapper(url, dbType) {
   const browser = await puppeteer.launch({
     // headless: false,
@@ -141,4 +118,6 @@ async function webSiteChecker(page, i, dbType) {
   }
 }
 
-carPages.map(async (page) => await masterScrapper(page.url, page.dbType))
+module.exports = {
+  masterScrapper,
+}

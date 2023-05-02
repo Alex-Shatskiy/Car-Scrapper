@@ -9,7 +9,7 @@ const Navbar = (props) => {
   const [carCompany, setCarCompany] = useState("")
 
   const getCars = async (company) => {
-   await axios.get(`https://car-scrapper-alex.onrender.com/${company}`)
+   await axios.get(`https://car-scrapper.onrender.com/${company}`)
    .then((res) => setData(res.data))
    .catch(err =>console.log("WHoops:",err))
   }

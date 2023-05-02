@@ -1,12 +1,37 @@
 import "../css/Cards.css"
 import React from "react"
 
+const intToCurrency = (price)=>{
+  return new Intl.NumberFormat('en-NZ', { 
+    style: 'currency', 
+    currency: 'NZD',  
+    maximumFractionDigits: 0, 
+    minimumFractionDigits: 0, 
+    }).format(price)
+}
+const addComma = (number)=>{
+  const numberFormatter = Intl.NumberFormat('en-US');
+  return numberFormatter.format(number);
+
+}
+
+
 const Cards = (props) => {
-  const { cars, filter } = props
-  let dbType = filter
+  const { cars, dbType, filter } = props
+  const {km, price, engineSize,  year} = filter
+
   return (
     <div className="card-container">
-      {cars.map((car) => {
+      {cars.map( (car) => {
+        // let carSlice = car[`${dbType}carname`];
+        // let carYear
+        // console.log(typeof carSlice.slice)
+        // if(typeof carSlice.slice === "undefined"){
+        //   console.log("rip")
+        // }else{
+        //    carYear = carSlice.match(/\d{4}/)
+        // }
+          
         return (
           <>
             <a className="clickable" href={car[`${dbType}pageurl`]} target="_blank">
@@ -15,10 +40,10 @@ const Cards = (props) => {
                 <h3>{car[`${dbType}carname`]}</h3>
                 <div className="card-details">
                   <p>
-                    {car[`${dbType}km`]} | {car[`${dbType}cc`]} | {car[`${dbType}type`]} | {car[`${dbType}transmission`]}
+                    {addComma(car[`${dbType}km`])} km | {addComma(car[`${dbType}cc`])}cc | {car[`${dbType}type`]} | {car[`${dbType}transmission`]}
                   </p>
                 </div>
-                <p id="price">Price: {car[`${dbType}price`]}</p>
+                <p id="price">Price: {intToCurrency(car[`${dbType}price`])}</p>
                 <span>Click to show more details</span>
               </div>
             </a>

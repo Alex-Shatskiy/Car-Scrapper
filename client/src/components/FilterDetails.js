@@ -21,7 +21,7 @@ const FilterDetails = (props) => {
 
   return (
     <div className="page-details">
-      <span>Total Cars: {data.cars.length} </span>
+      <span>Total Cars: {data.length} </span>
       <span>
         {filter === "optimal" ? (
           <>
@@ -47,12 +47,6 @@ const FilterDetails = (props) => {
         <option value="accending">accending</option>
         <option value="decending">decending</option>
       </select>
-        {/* <button onClick={() => setSorted("title")}>Year</button>
-        <button onClick={() => setSorted("km")}>km</button>
-        <button onClick={() => setSorted("price")}>Price</button>
-
-        <button onClick={() => setOrder("accending")}>accending</button>
-        <button onClick={() => setOrder("decending")}>decending</button> */}
       </div>
     </div>
   )

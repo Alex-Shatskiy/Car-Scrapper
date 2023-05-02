@@ -13,7 +13,7 @@ app.use(cors())
 
 
 app.get('/', async (req,res) =>{
-  console.log("connected")
+  
 })
 
 app.get("/carsCheap", async (req, res) => {

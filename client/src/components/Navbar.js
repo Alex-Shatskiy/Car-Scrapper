@@ -4,15 +4,13 @@ import { useEffect, useState } from "react"
 import React from "react"
 
 const Navbar = (props) => {
-  const { setData, placeHolder, setPlaceHolder, filter, setFilter } = props
+  const { setData, placeHolder, setPlaceHolder, filter, setFilter, dbType, setDbType } = props
 
   const [carCompany, setCarCompany] = useState("")
 
-  const getCars = async (company, specFilter) => {
+  const getCars = async (company) => {
    await axios.get(`http://localhost:5000/${company}`)
    .then((res) => setData(res.data))
-   .then(()=>{
-   })
    .catch(err =>console.log("WHoops:",err))
   }
   // const getCars = async (company, specFilter) => {
@@ -20,19 +18,18 @@ const Navbar = (props) => {
   //  }
   useEffect(() => {
     setData(null)
-    console.log(filter)
-    getCars(carCompany, filter)
-  }, [filter])
+    getCars(carCompany, dbType)
+  }, [dbType])
 
   const changePlaceholder = (placeHolderTxt) => {
     setPlaceHolder(placeHolderTxt)
   }
-  const handleClick = (specFilter, url, placeholder,dbType) => {
+  const handleClick = (url, placeholder,dbType) => {
     changePlaceholder(placeholder)
     setData(null)
     setCarCompany(url)
-    getCars(url, specFilter)
-    setFilter(dbType)
+    getCars(url)
+    setDbType(dbType)
   }
   return (
     <>
@@ -48,31 +45,31 @@ const Navbar = (props) => {
             <div className="section-contnet">
               <p
                 onClick={() =>
-                  handleClick(filter, "autoWorld", "Auto World Cars", "aw_")
+                  handleClick("autoWorld", "Auto World Cars", "aw_")
                 }
               >
                 Auto World Cars
               </p>
-              <p onClick={() => handleClick(filter, "carsCheap", "Cheap Cars", 'cc_')}>
+              <p onClick={() => handleClick("carsCheap", "Cheap Cars", 'cc_')}>
                 Cars Cheap
               </p>
               <p
                 onClick={() =>
-                  handleClick(filter, "coventryCars", "Coventry Cars", 'conc_')
+                  handleClick("coventryCars", "Coventry Cars", 'conc_')
                 }
               >
                 Coventry Cars
               </p>
               <p
                 onClick={() =>
-                  handleClick(filter, "valuemotors", "Value Motors", 'vm_')
+                  handleClick("valuemotors", "Value Motors", 'vm_')
                 }
               >
                 Value Motors
               </p>
               <p
                 onClick={() =>
-                  handleClick(filter, "wholeSale", "Whole Sale Cars", 'wc_')
+                  handleClick("wholeSale", "Whole Sale Cars", 'wc_')
                 }
               >
                 Whole Sale Cars

@@ -30,15 +30,19 @@ async function getAutoWorldPageData(page, iterate) {
       page,
       `//*[@id="frmDefault"]/div[3]/div/div[2]/div[1]/div/div[2]/div/div[4]/ul/li[${iterate}]/div/div/div[1]/a`
     )
+
+      let cc = km[4]
+      let type = km[3]
+      let transmission = km[2]
   
-    return await({
+    return await  ({
       aw_carimage: imgUrl,
       aw_carname: title.replace(/\s+/g, " ").trim(),
       aw_price: price !=undefined?parseInt(price.replace(/\D/g, '')):null,
       aw_km: parseInt(km[0] + km[1]),
-      aw_cc: km[4] !=undefined?parseInt( km[4].replace(/\D/g, '')):null,
-      aw_type: km[3]!=undefined?km[3]:null,
-      aw_transmission: km[2],
+      aw_cc: transmission != 'Electric'?parseInt( cc.replace(/\D/g, '')):0,
+      aw_type: type!=undefined?type:null,
+      aw_transmission: transmission,
       aw_pageurl: pageUrl,
     })
 }
@@ -55,7 +59,9 @@ let imgUrl = await getImgUrl(
   let km = await getTxtContent(
     page,
     `//*[@id="vehicle-list-results"]/li[${iterate}]/div[1]/div/div[2]/ul/li[1]`
+    
   )
+
   let cc = await getTxtContent(
     page,
     `//*[@id="vehicle-list-results"]/li[${iterate}]/div[1]/div/div[2]/ul/li[4]`
@@ -79,16 +85,23 @@ let imgUrl = await getImgUrl(
     `//*[@id="vehicle-list-results"]/li[${iterate}]/div[1]/div/div[1]/a`
   )
 
-  return await ({
-   cc_carimage: imgUrl,
-   cc_carname: title.replace(/\s+/g, " ").trim(),
-   cc_price: price !=undefined?parseInt(price.replace(/\D/g, '')):null,
-   cc_km: parseInt(km[0] + km[1]),
-   cc_cc: km[4] !=undefined?parseInt( km[4].replace(/\D/g, '')):null,
-   cc_type: km[3]!=undefined?km[3]:null,
-   cc_transmission: km[2],
-   cc_pageurl: pageUrl,
-  })
+
+  cc = parseInt(cc.replace(/\D/g, ''))
+  if(Number.isInteger(cc) == false) cc = 0
+
+  price = parseInt(price.replace(/\D/g, ''))
+  if(Number.isInteger(price) == false) price = 0
+
+  return await({
+    cc_carimage: imgUrl,
+    cc_carname: title.replace(/\s+/g, " ").trim(),
+    cc_price: price,
+    cc_km: parseInt(km.replace(/\D/g, '')),
+    cc_cc: cc,
+    cc_type: type!=undefined?type:"0",
+    cc_transmission: transmission,
+    cc_pageurl: pageUrl,
+  }) 
 }
 
 async function getCoventryCarsPageData(page, iterate) {
@@ -123,14 +136,21 @@ async function getCoventryCarsPageData(page, iterate) {
     )
 
     if(pageUrl == "N/A") return
-    return await {
+    let type = km[3]
+    let cc  
+    if(type === 'Electric' || km[4] == undefined ) {
+      cc ='0'
+    }else cc = km[4].replace(/\D/g, '')
+
+    let transmission = km[2]
+    return  await{
       conc_carimage: imgUrl,
       conc_carname: title.replace(/\s+/g, " ").trim(),
       conc_price: price !=undefined?parseInt(price.replace(/\D/g, '')):null,
       conc_km: parseInt(km[0] + km[1]),
-      conc_cc: km[4] !=undefined?parseInt( km[4].replace(/\D/g, '')):null,
-      conc_type: km[3]!=undefined?km[3]:null,
-      conc_transmission: km[2],
+      conc_type: type,
+      conc_transmission: transmission,
+      conc_cc: parseInt(cc),
       conc_pageurl: pageUrl,
     }
   }
@@ -161,16 +181,32 @@ async function getCoventryCarsPageData(page, iterate) {
       page,
       `//*[@id="frmDefault"]/div[3]/div/div[2]/div[1]/div/div[2]/div/div[4]/ul/li[${iterate}]/div/div/div[1]/a`
     )
-  
-    return await {
-        vm_carimage: imgUrl,
-        vm_carname: title.replace(/\s+/g, " ").trim(),
-        vm_price: price !=undefined?parseInt(price.replace(/\D/g, '')):null,
-        vm_km: parseInt(km[0] + km[1]),
-        vm_cc: km[4] !=undefined?parseInt( km[4].replace(/\D/g, '')):null,
-        vm_type: km[3]!=undefined?km[3]:null,
-        vm_transmission: km[2],
-        vm_pageurl: pageUrl,
+
+    let type = km[3]
+    let cc 
+    let kms
+    
+    if(km[0]== undefined || km[1]== undefined){
+      kms = '0'
+    }else kms = km[0] + km[1]
+    
+    price = parseInt(price.replace(/\D/g, ''))
+    if(Number.isInteger(price) == false) price = 0
+
+    if(type === 'Electric' || km[4] == undefined ) {
+      cc ='0'
+    }else cc = km[4].replace(/\D/g, '')
+
+    let transmission = km[2]
+    return {
+      vm_carimage: imgUrl,
+      vm_carname: title.replace(/\s+/g, " ").trim(),
+      vm_price: price,
+      vm_km: parseInt(kms),
+      vm_cc:  parseInt(cc),
+      vm_type: type!=undefined?type:null,
+      vm_transmission: transmission,
+      vm_pageurl: pageUrl,
     }
   }
 
@@ -200,17 +236,31 @@ async function getCoventryCarsPageData(page, iterate) {
         page,
         `//*[@id="frmDefault"]/div[3]/div/div[2]/div[2]/div/div[2]/div[3]/ul/li[${iterate}]/div/div[1]/div[3]/div/div/div[2]/div/a`
       )
-  
-    
-      return await ({
-        ws_carimage: imgUrl,
-        ws_carname: title.replace(/\s+/g, " ").trim(),
-        ws_price: price !=undefined?parseInt(price.replace(/\D/g, '')):null,
-        ws_km: parseInt(km[0] + km[1]),
-        ws_cc: km[4] !=undefined?parseInt( km[4].replace(/\D/g, '')):null,
-        ws_type: km[3]!=undefined?km[3]:null,
-        ws_transmission: km[2],
-        ws_pageurl: pageUrl,
+     
+      let type = km[3]
+      let cc 
+      let kms 
+      price = parseInt(price.replace(/\D/g, ''))
+      if(Number.isInteger(price) == false) price = 0
+
+    if(type === 'Electric' || km[4] == undefined ) {
+      cc ='0'
+    }else cc = km[4].replace(/\D/g, '')
+
+    if(km[0]== undefined || km[1]== undefined){
+      kms = '0'
+    }else kms = km[0] + km[1]
+
+      let transmission = km[2]
+      return ({
+        wc_carimage: imgUrl,
+        wc_carname: title.replace(/\s+/g, " ").trim(),
+        wc_price: price,
+        wc_km: parseInt(kms),
+        wc_cc:  parseInt(cc),
+        wc_type: type!=undefined?type:null,
+        wc_transmission: transmission,
+        wc_pageurl: pageUrl,
       })
   }
 
@@ -245,6 +295,8 @@ async function getCoventryCarsPageData(page, iterate) {
         return "N/A"
     }
   }
+
+  
   module.exports={
     getWholeSaleCarsPageData,
     getValueMotrosPageData,

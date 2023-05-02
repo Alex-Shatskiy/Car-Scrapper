@@ -7,7 +7,7 @@ import Loading from "./components/Loading"
 const App = () => {
   const [data, setData] = useState(null)
   const [placeHolder, setPlaceHolder] = useState("Select Company")
-  const [filter, setFilter] = useState("more")
+  const [filter, setFilter] = useState("")
   console.log(data)
 
   return (
@@ -17,14 +17,15 @@ const App = () => {
         placeHolder={placeHolder}
         setPlaceHolder={setPlaceHolder}
         filter={filter}
+        setFilter={setFilter}
       />
 
-      {data == null ? (
+      {data === null ? (
         <Loading />
       ) : (
         <>
-          <Filter data={data} filter={filter} setFilter={setFilter} />
-          <CardContainer data={data} filter={filter} />
+          {/* <Filter data={data.data} filter={filter} setFilter={setFilter} /> */}
+          <CardContainer data={data.data} filter={filter} />
         </>
       )}
     </>

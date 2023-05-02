@@ -1,21 +1,22 @@
 
 const {Pool, Client} = require('pg')
+require('dotenv').config()
 const pgp = require('pg-promise')();
 
 const client = new Pool({
-    host: 'car.cub5uqvia3hf.ap-southeast-2.rds.amazonaws.com',
+    host: process.env.PG_HOST,
     port: 5432,
-    database: 'initial_db',
-    user: 'postgres',
-    password: '',
+    database: process.env.DATABASE ,
+    user: process.env.USER ,
+    password: process.env.PASSWORD ,
 })
 
 const db = pgp({
-    host: 'car.cub5uqvia3hf.ap-southeast-2.rds.amazonaws.com',
+    host: process.env.PG_HOST,
     port: 5432,
-    database: 'initial_db',
-    user: 'postgres',
-    password: '',
+    database: process.env.DATABASE ,
+    user: process.env.USER ,
+    password: process.env.PASSWORD ,
  });
  
 

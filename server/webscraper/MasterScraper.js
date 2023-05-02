@@ -24,7 +24,7 @@ async function masterScrapper(url, dbType) {
   //browser new page
   const page = await browser.newPage()
   let carData = []
-
+console.log(url,dbType)
   //launch URL
   await page.goto(url, { timeout: 0 })
   //identify element with class name
@@ -62,8 +62,10 @@ async function masterScrapper(url, dbType) {
       }
     }
   }
+  
+  // console.log(carData)
+
   browser.close()
-  console.log(carData)
   return await carData
 }
 async function checkPageNumbers(page) {
@@ -100,23 +102,20 @@ async function webSiteChecker(page, i, dbType) {
   switch (dbType) {
     case "conventrycars":
       return await getCoventryCarsPageData(page, i)
-      break
     case "autoworld":
       return await getAutoWorldPageData(page, i)
-      break
     case "wholesalecars":
       return await getWholeSaleCarsPageData(page, i)
-      break
     case "valuemotors":
       return await getValueMotrosPageData(page, i)
-      break
     case "cheapcars":
       return await getCheapCarsPageData(page, i)
-      break
     default:
       console.log("Ohh oooo")
   }
 }
+
+masterScrapper("https://www.wholesalecarsdirect.co.nz/vehicles", "wholesalecars")
 
 module.exports = {
   masterScrapper,

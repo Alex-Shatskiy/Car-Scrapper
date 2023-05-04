@@ -12,15 +12,13 @@ const Navbar = (props) => {
   const getCars = async (company) => {
    await axios({
     method: 'get',
-    url: `http://localhost:5000/${company}`,
+    url: `https://car-scrapper.onrender.com/${company}`,
     withCredentials: false,
   })
    .then((res) => setData(res.data))
    .catch(err =>console.log("WHoops:",err))
   }
-  // const getCars = async (company, specFilter) => {
-  //   await axios.get(`https://car-scrapper.onrender.com`).then((res) => setData(res.data)).catch(err =>console.log("WHoops:",err))
-  //  }
+
   useEffect(() => {
     setData(null)
     getCars(carCompany, dbType)

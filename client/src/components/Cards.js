@@ -36,12 +36,17 @@ const Cards = (props) => {
           <>
             <a className="clickable" href={car[`${dbType}pageurl`]} target="_blank">
               <div className="card">
-                <img src={car[`${dbType}carimage`]} />
+                <div className="car-image">
+                  <img src={car[`${dbType}carimage`]} />
+                </div>
                 <h3>{car[`${dbType}carname`]}</h3>
                 <div className="card-details">
                   <p>
-                    {addComma(car[`${dbType}km`])} km | {addComma(car[`${dbType}cc`])}cc | {car[`${dbType}type`]} | {car[`${dbType}transmission`]}
+                    {addComma(car[`${dbType}km`])} km   
                   </p>
+                  <p>{addComma(car[`${dbType}cc`])}cc </p>
+                  <p> {car[`${dbType}type`]} </p>
+                  <p>{car[`${dbType}transmission`]}</p>
                 </div>
                 <p id="price">Price: {intToCurrency(car[`${dbType}price`])}</p>
                 <span>Click to show more details</span>

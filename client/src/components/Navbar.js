@@ -40,7 +40,7 @@ const Navbar = (props) => {
   return (
     <>
       <div className="nav-bar">
-        <img className="reddit-icon" src="./images/web-crawlers.jpg" />
+        <img className="reddit-icon" src="./images/wheel.png" />
         <div className="nav-bar-navigation">
           <div className="website-name">
           <h3>Car Finder</h3>
